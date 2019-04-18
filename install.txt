@@ -1,0 +1,130 @@
+Open command prompt / terminal and find project path.
+run
+
+
+composer require&nbsp;laravelcollective/html
+Next, add your new provider to the providers array of config/app.php:
+
+'providers' => [
+    // ...
+    Collective\Html\HtmlServiceProvider::class,
+    // ...
+  ],
+Finally, add two class aliases to the aliases array of config/app.php:
+
+'aliases' => [
+    // ...
+      'Form' => Collective\Html\FormFacade::class,
+      'Html' => Collective\Html\HtmlFacade::class,
+    // ...
+  ],
+
+
+
+
+
+
+
+
+
+Example with PUT method
+
+{!! Form::open(array('url' => 'foo/bar','method' => 'PUT')) !!}
+    //
+{!! Form::close() !!}
+*For POST/GET/DELETE method, you just have to change PUT to any method you want.
+
+Example with parameter for route. Most cases are sending unique ID to controller
+
+{!! Form::open(array('url' => 'foo/bar/'.$id,'method' => 'PUT')) !!}
+    //
+{!! Form::close() !!}
+Example with parameter for route name./strong>
+
+{!! Form::open(array('url' => route('post.show', ['id' => $id]),'method' => 'PUT')) !!}
+    //
+{!! Form::close() !!}
+Textbox
+
+{{Form::text("username", 
+             old("username") ? old("username") : (!empty($user) ? $user->username : null),
+             [
+                "class" => "form-group user-email",
+                "placeholder" => "Username",
+             ])
+}}
+Password
+*Password do not have default value!
+
+{{Form::password("password", 
+             [
+                "class" => "form-group",
+                "placeholder" => "Your Password",
+             ])
+}}
+
+Textarea
+*Password do not have default value!
+
+{{Form::textarea("description", old("description") ? old("description") : (!empty($user) ? $user->description : null), 
+             [
+                "class" => "form-group",
+             ])
+}}
+
+File Upload
+*File field do not have default value!
+
+{{Form::file("profile-image",
+             [
+                "class" => "form-group",
+             ])
+}}
+
+Checkbox
+{{Form::checkbox("item","value",true
+             [
+                "class" => "form-group",
+             ])
+}}
+*value is the checkbox value and true if it check / false if it uncheck
+
+More example for checkbox array:
+
+@for($i = 0; $i < 10; $i++) {{Form::checkbox("item[]","value".$i ,false [ "class" => "form-group",
+             ])
+}}
+@endforeach
+Example above will generate 10 checkbox with array.
+
+Radio Button
+{{Form::radio("item","value",true
+             [
+                "class" => "form-group",
+             ])
+}}
+*value is the radio value and true if it check / false if it uncheck
+
+More example for radio array:
+
+
+@for($i = 0; $i < 10; $i++) {{Form::radio("item[]","value".$i ,false [ "class" => "form-group",
+             ])
+}}
+@endforeach
+Example above will generate 10 radio with array.
+
+Select Dropdown List
+
+{{Form::select("size",['L' => 'Large', 'S' => 'Small'], null,
+             [
+                "class" => "form-group",
+                "placeholder" => "Pick a size..."
+             ])
+}}
+* you can change null to any dropdown value. For example: “L” / “S”
+
+Submit Button
+{{Form::submit('Submit Form')}}
+Label
+{{ Form::label("Username", null, ['class' => 'control-label']) }}
